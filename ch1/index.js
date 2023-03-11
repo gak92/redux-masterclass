@@ -1,7 +1,8 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import logger from "redux-logger";
 
 // store
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(logger.default));
 
 const history = [];
 
@@ -14,11 +15,11 @@ function reducer(state={amount:1}, action) {
 }
 
 // global state
-store.subscribe(() => {
-  history.push(store.getState());
-  console.log(history);
+// store.subscribe(() => {
+//   history.push(store.getState());
+//   console.log(history);
 
-});
+// });
 
 // dispatch an action
 setInterval(() => {
