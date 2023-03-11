@@ -37,16 +37,18 @@ function reducer(state={amount:1}, action) {
 // });
 
 // Async call
-async function getUser() {
-  const { data } = await axios.get('http://localhost:3000/accounts/1');
-  console.log(data);
+function getUser(id) {
+  return async (dispatch, getState) => {
+    const { data } = await axios.get(`http://localhost:3000/accounts/${id}`);
+    // console.log(data);
+    dispatch(initialize(data.amount));
+  }
 }
 // getUser();
 
 // Action Creator
-async function initialize(dispatch, getState) {
-  const { data } = await axios.get('http://localhost:3000/accounts/1');
-  dispatch({type: INIT, payload: data.amount});
+function initialize(val) {
+  return {type: INIT, payload: val};
 }
 
 function increment() {
@@ -63,7 +65,7 @@ function incrementByAmount(val) {
 
 // dispatch an action
 setTimeout(() => {
-  store.dispatch(initialize);
+  store.dispatch(getUser(2));
 }, 2000);
 
 // console.log(store.getState());
