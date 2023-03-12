@@ -4,10 +4,14 @@ import logger from "redux-logger";
 import thunk from "redux-thunk";
 
 // action name constant (Type)
-const INIT = "account/initialize";
+// const INIT = "account/initialize";
 const INC = "account/increment";
 const DEC = "account/decrement";
-const INCBYAMOUNT = "incrementByAmount";
+const INCBYAMOUNT = "account/incrementByAmount";
+
+const GET_USER_ACC_PENDING = "account/getUserAccount/pending";
+const GET_USER_ACC_FULFILLED = "account/getUserAccount/fulfilled";
+const GET_USER_ACC_REJECTED = "account/getUserAccount/rejected";
 
 const INCBONUS = "bonus/increment";
 
@@ -25,8 +29,12 @@ const history = [];
 // reducer
 function accountReducer(state = { amount: 1 }, action) {
   switch (action.type) {
-    case INIT:
-      return { amount: action.payload };
+    case GET_USER_ACC_FULFILLED:
+      return { amount: action.payload, pending: false };
+    case GET_USER_ACC_REJECTED:
+      return {...state, error: action.error, pending: false };
+    case GET_USER_ACC_PENDING:
+      return { ...state, pending: true };
     case INC:
       return { amount: state.amount + 1 };
     case DEC:
@@ -60,17 +68,32 @@ function bonusReducer(state = { points: 0 }, action) {
 
 // Async call
 // Action Creator
-function getUser(id) {
+function getUserAccount(id) {
   return async (dispatch, getState) => {
-    const { data } = await axios.get(`http://localhost:3000/accounts/${id}`);
-    // console.log(data);
-    dispatch(initialize(data.amount));
+    try {
+      dispatch(getUserAccountPending());
+
+      const { data } = await axios.get(`http://localhost:3000/accounts/${id}`);
+      // console.log(data);
+      dispatch(getUserAccountFulfilled(data.amount));
+    }
+    catch(error) {
+      dispatch(getUserAccountRejected(error.message));
+    }
   };
 }
 // getUser();
 
-function initialize(val) {
-  return { type: INIT, payload: val };
+function getUserAccountFulfilled(val) {
+  return { type: GET_USER_ACC_FULFILLED, payload: val };
+}
+
+function getUserAccountRejected(error) {
+  return { type: GET_USER_ACC_REJECTED, error: error };
+}
+
+function getUserAccountPending() {
+  return { type: GET_USER_ACC_PENDING };
 }
 
 function increment() {
@@ -91,8 +114,8 @@ function incrementBonus() {
 
 // dispatch an action
 setTimeout(() => {
-  // store.dispatch(getUser(2));
-  store.dispatch(incrementBonus(7));
+  store.dispatch(getUserAccount(2));
+  // store.dispatch(incrementBonus(7));
 }, 2000);
 
 // console.log(store.getState());
