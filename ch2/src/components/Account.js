@@ -1,21 +1,8 @@
 import React, { useState } from 'react';
 
-const Account = () => {
+const Account = ({account, increment, decrement, incrementByValue}) => {
 
   const [value, setValue] = useState(0);
-  const [account, setAccount] = useState({ amount: 0 });
-
-  const increment = () => {
-    setAccount({ amount: account.amount+1 });
-  }
-
-  const decrement = () => {
-    setAccount({ amount: account.amount-1 });
-  }
-
-  const incrementByValue = (val) => {
-    setAccount({ amount: account.amount + val });
-  }
 
   return (
     <div className='card'>
