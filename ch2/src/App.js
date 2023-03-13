@@ -18,11 +18,17 @@ function App() {
     setAccount({ amount: account.amount + val });
   };
 
+  const [bonus, setBonus] = useState({points: 0});
+
+  const incrementBonus = () => {
+    setBonus({ points: bonus.points + 1});
+  }
+
   return (
     <div className="App">
       <h4>App</h4>
       <h3>Current Amount: {account.amount}</h3>
-      <h3>Total Bonus: </h3>
+      <h3>Total Bonus: {bonus.points}</h3>
 
       <Account
         account={account}
@@ -30,7 +36,8 @@ function App() {
         decrement={decrement}
         incrementByValue={incrementByValue}
       ></Account>
-      <Bonus></Bonus>
+
+      <Bonus bonus={bonus} incrementBonus={incrementBonus}></Bonus>
     </div>
   );
 }

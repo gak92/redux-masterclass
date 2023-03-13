@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 
-const Bonus = () => {
+const Bonus = ({bonus, incrementBonus}) => {
 
-  const [bonus, setBonus] = useState({points: 0});
-
-  const increment = () => {
-    setBonus({ points: bonus.points + 1});
-  }
+  
 
   return (
     <div className='card'>
@@ -14,7 +10,7 @@ const Bonus = () => {
         <h4><b>Bonus Component</b></h4>
 
         <h3>Point: {bonus.points}</h3>
-        <button onClick={increment}>Increment +</button>
+        <button onClick={incrementBonus}>Increment +</button>
       </div>
     </div>
   )
