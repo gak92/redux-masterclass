@@ -19,7 +19,7 @@ export function getUserAccount(id) {
     try {
       dispatch(getUserAccountPending());
 
-      const { data } = await axios.get(`http://localhost:3000/accounts/${id}`);
+      const { data } = await axios.get(`http://localhost:8080/accounts/${id}`);
       // console.log(data);
       dispatch(getUserAccountFulfilled(data.amount));
     }
