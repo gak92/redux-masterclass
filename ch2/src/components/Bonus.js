@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 
 const Bonus = () => {
 
-  const [points, setPoints] = useState({value: 0});
+  const [bonus, setBonus] = useState({points: 0});
 
   const increment = () => {
-    setPoints({ value: points.value + 1});
+    setBonus({ points: bonus.points + 1});
   }
 
   return (
@@ -13,7 +13,7 @@ const Bonus = () => {
       <div className='container'>
         <h4><b>Bonus Component</b></h4>
 
-        <h3>Point: {points.value}</h3>
+        <h3>Point: {bonus.points}</h3>
         <button onClick={increment}>Increment +</button>
       </div>
     </div>
