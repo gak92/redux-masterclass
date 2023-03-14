@@ -1,40 +1,26 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { increment, decrement, incrementByAmount } from '../slices/accountSlice';
 
 const Account = () => {
 
-  const [account, setAccount] = useState({amount: 1});
   const [value, setValue] = useState(0);
+  const amount = useSelector(state => state.account.amount);
 
-  const increment = () => {
-    setAccount({
-      amount: account.amount + 1
-    });
-  }
-
-  const decrement = () => {
-    setAccount({
-      amount: account.amount - 1
-    });
-  }
-
-  const incrementByAmount = (val) => {
-    setAccount({
-      amount: account.amount + val
-    });
-  }
-
+  const dispatch = useDispatch();
+  
   return (
     <div className='card'>
       <div className='container'>
         <h4><b>Account Component</b></h4>
 
-        <h3>Amount: ${account.amount}</h3>
+        <h3>Amount: ${amount}</h3>
 
-        <button onClick={increment}>Increment +</button>
-        <button onClick={decrement}>Decrement -</button>
+        <button onClick={() => dispatch(increment())}>Increment +</button>
+        <button onClick={() => dispatch(decrement())}>Decrement -</button>
 
         <input type='text' onChange={(e) => setValue(+e.target.value)}/>
-        <button onClick={() => incrementByAmount(value)} >Increment By {value}</button>
+        <button onClick={() => dispatch(incrementByAmount(value))} >Increment By {value}</button>
 
       </div>
     </div>
