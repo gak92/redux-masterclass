@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { increment, decrement, incrementByAmount } from '../slices/accountSlice';
+import { increment, decrement, incrementByAmount, getUserAccount } from '../slices/accountSlice';
 
 const Account = () => {
 
@@ -21,6 +21,7 @@ const Account = () => {
 
         <input type='text' onChange={(e) => setValue(+e.target.value)}/>
         <button onClick={() => dispatch(incrementByAmount(value))} >Increment By {value}</button>
+        <button onClick={() => dispatch(getUserAccount(1))} >Get User Account</button>
 
       </div>
     </div>
