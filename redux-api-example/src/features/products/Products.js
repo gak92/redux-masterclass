@@ -23,8 +23,8 @@ export function Products() {
 
       <div>
         {
-          products.map((product) => (
-            <div className="card">
+          products.map((product, index) => (
+            <div className="card" key={index}>
               <img src={product.thumbnail} alt={product.title} style={{width: '100%'}} />
               <h1>{product.title}</h1>
               <p className="price">{product.price}</p>

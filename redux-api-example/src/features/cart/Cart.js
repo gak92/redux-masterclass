@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchItemsAsync } from "./cartSlice";
+import { fetchItemsAsync, deleteItemAsync } from "./cartSlice";
 import "./Cart.css";
 
 export function Cart() {
@@ -14,8 +14,8 @@ export function Cart() {
   return (
     <div>
       <div>
-        {items.map((item) => (
-          <div className="cart-item">
+        {items.map((item,index) => (
+          <div className="cart-item" key={index}>
             <img className="img-fluid" src={item.thumbnail} alt={item.title} />
             <div className="description">
               <p>{item.title}</p>
@@ -34,8 +34,7 @@ export function Cart() {
               </select>
             </div>
             <div className="close">
-              {/* <button onClick={() => dispatch(deleteAsync(item.id))}>X</button> */}
-              <button>X</button>
+              <button onClick={() => dispatch(deleteItemAsync(item.id))}>X</button>
             </div>
           </div>
         ))}
