@@ -21,7 +21,6 @@ export const addItemAsync = createAsyncThunk(
   async (item) => {
     const { id, title, brand, price, thumbnail } = item;
     const response = await addItem({ id, title, brand, price, thumbnail, quantity:1 });
-    // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
 );
@@ -30,8 +29,15 @@ export const deleteItemAsync = createAsyncThunk(
   'cart/deleteItem',
   async (id) => {
     await deleteItem(id);
-    // The value we return becomes the `fulfilled` action payload
     return id;
+  }
+);
+
+export const updateItemAsync = createAsyncThunk(
+  'cart/updateItem',
+  async ({id, change}) => {
+    const response = await updateItem(id, change);
+    return response.data;
   }
 );
 
@@ -61,6 +67,11 @@ export const cartSlice = createSlice({
         state.status = 'idle';
         const index = state.items.findIndex(item => item.id === action.payload);
         state.items.splice(index, 1);
+      })
+      .addCase(updateItemAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        const index = state.items.findIndex(item => item.id === action.payload.id);
+        state.items.splice(index, 1, action.payload);
       });
   },
 });
