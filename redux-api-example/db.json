@@ -48,7 +48,9 @@
       "brand": "Samsung",
       "category": "smartphones",
       "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
-      "images": ["https://i.dummyjson.com/data/products/3/1.jpg"]
+      "images": [
+        "https://i.dummyjson.com/data/products/3/1.jpg"
+      ]
     },
     {
       "id": 4,
@@ -550,6 +552,15 @@
         "https://i.dummyjson.com/data/products/30/thumbnail.jpg"
       ]
     }
+  ],
+  "cart": [
+    {
+      "id": 1,
+      "title": "iPhone 9",
+      "brand": "Apple",
+      "price": 549,
+      "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
+      "quantity": 1
+    }
   ]
-
 }

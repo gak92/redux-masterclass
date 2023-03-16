@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProductsAsync } from "./productsSlice";
+import { addItemAsync } from "../cart/cartSlice";
 import "./Products.css";
 
 export function Products() {
@@ -28,7 +29,7 @@ export function Products() {
               <h1>{product.title}</h1>
               <p className="price">{product.price}</p>
               <p>{product.description}</p>
-              <p><button>Add to Cart</button></p>
+              <p><button onClick={() => dispatch(addItemAsync(product))}>Add to Cart</button></p>
             </div>
           ))
         }
